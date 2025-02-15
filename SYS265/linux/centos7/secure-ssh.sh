@@ -19,7 +19,7 @@ sudo useradd -m -d /home/$USERNAME -s /bin/bash $USERNAME
 sudo mkdir /home/$USERNAME/.ssh
 
 #Copy the public key
-sudo cp ssh/web01_id_rsa.pub /home/$USERNAME/.ssh/authorized_keys
+sudo cp SYS265/linux/public-keys/id_rsa.pub /home/$USERNAME/.ssh/authorized_keys
 
 
 #Set correct permissions
