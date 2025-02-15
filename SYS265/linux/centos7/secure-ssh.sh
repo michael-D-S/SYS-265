@@ -13,16 +13,18 @@ if [ -z "$USERNAME" ]; then
 fi
 
 #create the user
-sudo adduser $USERNAME
+sudo useradd -m -d /home/$USERNAME -s /bin/bash $USERNAME
 
 #Creat the .ssh directory
 sudo mkdir /home/$USERNAME/.ssh
 
-#append the public key to authroized_key
-sudo cat ssh/web01_id_rsa.pub >> /home/$USERNAME/.ssh/authorized_keys
+#Copy the public key
+sudo cp ssh/wen01_id_rsa.pub /home/$USERNAME/.ssh/authorized_keys
+
 
 #Set correct permissions
-sudo chown $USERNAME:$USERNAME /home/$USERNAME/.ssh/authorized_keys
+sudo chmod 700 /home/$USERNAME/.ssh
+sudo chmod 600 /home/$USERNAME/.ssh/authorized_keys
 sudo chown -R $USERNAME:$USERNAME /home/$USERNAME/.ssh
 
 echo "User $USERNAME configuration for passwordless SSH login."
