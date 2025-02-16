@@ -6,6 +6,7 @@
 #!/bin/bash
 
 USERNAME=$1
+GITHUB_URL="https://raw.githubusercontent.com/michael-D-S/SYS-265/refs/heads/main/SYS265/linux/public-keys/id_rsa.pub"
 
 if [ -z "$USERNAME" ]; then
  echo "Usage: ./secure-ssh.sh <username>"
@@ -18,9 +19,14 @@ sudo useradd -m -d /home/$USERNAME -s /bin/bash $USERNAME
 #Creat the .ssh directory
 sudo mkdir /home/$USERNAME/.ssh
 
-#Copy the public key
-sudo cp SYS265/linux/public-keys/id_rsa.pub /home/$USERNAME/.ssh/authorized_keys
+#Download the public key from GitHub
+sudo curl -s "$GITHUB_URL" -o /tmp/id_rsa.pub
 
+#Copy the public key
+sudo cp /tmp/id_rsa.pub /home/$USERNAME/.ssh/authorized_keys
+
+#Remove the Temporary key
+sudo rm /tmp/id_rsa.pub
 
 #Set correct permissions
 sudo chmod 700 /home/$USERNAME/.ssh
